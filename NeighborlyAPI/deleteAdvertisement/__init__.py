@@ -1,6 +1,7 @@
 import azure.functions as func
 import pymongo
 from bson.objectid import ObjectId
+import os
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
@@ -9,7 +10,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     if id:
         try:
-            url = "mongodb://neighbourlydb:VtJNyPwzWuxDSnAj3f5bJLQqv4ZpF1usEvPrKn86wrF0gGZ0qWpP9L6HIOu4aMt83dEo4pnUx7jEACDbikOkZQ==@neighbourlydb.mongo.cosmos.azure.com:10255/?ssl=true&retrywrites=false&replicaSet=globaldb&maxIdleTimeMS=120000&appName=@neighbourlydb@"  # TODO: Update with appropriate MongoDB connection information
+            url = os.environ['MongoConnection']
             client = pymongo.MongoClient(url)
             database = client['neighbourlymongo']
             collection = database['advertisements']
